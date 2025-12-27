@@ -23,11 +23,22 @@
     <!-- HERO SECTION -->
     <section class="hero">
         <div class="hero-overlay"></div>
-        <div class="container hero-content">
-            <img src="https://www.kuna.net.kw/NewsPictures/2024/8/1/e4e11216-a79f-4063-b152-a91363ad7638.jpg" alt="Gulf Basketball" class="hero-img">
-            <h2>Top Basketball Talent in the Gulf</h2>
-            <p>Tracking both local and immigrant players with the most up-to-date rankings.</p>
-            <a href="rankings.html" class="btn-primary">View Rankings</a>
+        <div class="container hero-grid">
+            <!-- Left column: Articles -->
+            <div class="hero-articles">
+                <h3>Latest Gulf Basketball News</h3>
+                <ul id="articles-list">
+                    <!-- Articles will load here dynamically from articles.json -->
+                </ul>
+            </div>
+
+            <!-- Right column: Hero image + main text -->
+            <div class="hero-content">
+                <img src="https://www.kuna.net.kw/NewsPictures/2024/8/1/e4e11216-a79f-4063-b152-a91363ad7638.jpg" alt="Gulf Basketball" class="hero-img">
+                <h2>Top Basketball Talent in the Gulf</h2>
+                <p>Tracking both local and immigrant players with the most up-to-date rankings.</p>
+                <a href="rankings.html" class="btn-primary">View Rankings</a>
+            </div>
         </div>
     </section>
 
@@ -55,5 +66,32 @@
             <p>&copy; 2025 Gulf Hoops Rankings. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- JS: Load articles from JSON -->
+    <script>
+    fetch('articles.json')
+    .then(response => response.json())
+    .then(data => {
+        const articlesList = document.getElementById('articles-list');
+        data.forEach(article => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = article.link;
+            a.target = "_blank";  // open in new tab
+            a.textContent = article.title;
+            li.appendChild(a);
+
+            // Add source
+            const sourceSpan = document.createElement('span');
+            sourceSpan.textContent = ` (${article.source})`;
+            sourceSpan.style.color = '#555';
+            sourceSpan.style.fontSize = '0.9rem';
+            li.appendChild(sourceSpan);
+
+            articlesList.appendChild(li);
+        });
+    })
+    .catch(err => console.error('Error loading articles:', err));
+    </script>
 </body>
 </html>
