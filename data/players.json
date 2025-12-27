@@ -1,24 +1,44 @@
 [
   {
-    "rank": "N/A",
-    "name": "John Doe",
+    "name": "Player 1",
     "country": "Bahrain",
-    "position": "SG",
-    "height": "6'2",
-    "team": "ABC Club",
-    "scouting": "",
-    "video": "",
-    "profilePage": "player.html"
+    "countryFlag": "https://via.placeholder.com/20x14?text=BH",
+    "age": 17,
+    "category": "U18",
+    "rankOverall": 1,
+    "photo": "https://via.placeholder.com/150",
+    "stats": {
+      "points": "-",
+      "assists": "-",
+      "rebounds": "-"
+    }
   },
   {
-    "rank": "N/A",
-    "name": "Ali Hassan",
-    "country": "UAE",
-    "position": "PF",
-    "height": "6'5",
-    "team": "XYZ Club",
-    "scouting": "",
-    "video": "",
-    "profilePage": "player.html"
+    "name": "Player 2",
+    "country": "Qatar",
+    "countryFlag": "https://via.placeholder.com/20x14?text=QA",
+    "age": 19,
+    "category": "U22",
+    "rankOverall": 2,
+    "photo": "https://via.placeholder.com/150",
+    "stats": {
+      "points": "-",
+      "assists": "-",
+      "rebounds": "-"
+    }
+  },
+  {
+    "name": "Player 3",
+    "country": "Kuwait",
+    "countryFlag": "https://via.placeholder.com/20x14?text=KW",
+    "age": 22,
+    "category": "Main",
+    "rankOverall": 3,
+    "photo": "https://via.placeholder.com/150",
+    "stats": {
+      "points": "-",
+      "assists": "-",
+      "rebounds": "-"
+    }
   }
 ]
