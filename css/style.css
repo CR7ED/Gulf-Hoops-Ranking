@@ -8,12 +8,11 @@
 
 /* COLORS */
 :root {
-    --primary: #0A3D62; /* Deep navy for Gulf feel */
+    --primary: #0A3D62; /* Deep navy */
     --accent: #F6A609;  /* Gold accent */
     --text: #121212;
     --bg: #FFFFFF;
     --light-bg: #F8F8F8;
-    --border: #E0E0E0;
 }
 
 /* BODY */
@@ -55,9 +54,7 @@ header nav a:hover {
 .hero {
     position: relative;
     text-align: center;
-    padding: 80px 20px;
-    background: var(--primary);
-    color: white;
+    padding: 60px 20px;
 }
 .hero-overlay {
     position: absolute;
@@ -68,29 +65,66 @@ header nav a:hover {
     z-index: 1;
     border-radius: 12px;
 }
-.hero-content {
+.hero-grid {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    justify-content: center;
     position: relative;
     z-index: 2;
-    max-width: 900px;
-    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+/* ARTICLES */
+.hero-articles {
+    flex: 1 1 250px;
+    background: rgba(255,255,255,0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+.hero-articles h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+.hero-articles ul {
+    list-style: none;
+}
+.hero-articles ul li {
+    margin-bottom: 10px;
+}
+.hero-articles ul li a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+.hero-articles ul li a:hover {
+    color: var(--accent);
+}
+
+/* HERO CONTENT */
+.hero-content {
+    flex: 1 1 400px;
+    text-align: center;
 }
 .hero-img {
     width: 100%;
-    max-width: 400px;       /* smaller width */
-    max-height: 300px;      /* limit height */
-    object-fit: cover;      /* crops nicely if needed */
+    max-width: 400px;
+    max-height: 300px;
+    object-fit: cover;
     border-radius: 12px;
-    margin: 0 auto 30px auto;
+    margin: 0 auto 20px auto;
     display: block;
     box-shadow: 0 8px 20px rgba(0,0,0,0.25);
 }
-.hero h2 {
-    font-size: 3rem;
-    margin-bottom: 20px;
+.hero-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
 }
-.hero p {
-    font-size: 1.25rem;
-    margin-bottom: 30px;
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
 }
 .btn-primary {
     display: inline-block;
@@ -153,14 +187,22 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
+    .hero-grid {
+        flex-direction: column;
+        align-items: center;
+    }
     .hero-img {
         max-width: 300px;
         max-height: 220px;
     }
-    .hero h2 {
+    .hero-articles {
+        width: 90%;
+        margin-bottom: 20px;
+    }
+    .hero-content h2 {
         font-size: 2rem;
     }
-    .hero p {
+    .hero-content p {
         font-size: 1rem;
     }
     header nav a {
