@@ -9,8 +9,9 @@
 <body>
 
 <header>
-  <div class="container">
+  <div class="header-container">
     <h1>Gulf Hoops Rankings</h1>
+    <p>Top Players in the Gulf Region by Age Category</p>
   </div>
 </header>
 
@@ -18,7 +19,7 @@
   <div class="container">
 
     <!-- FILTERS -->
-    <div class="filters" style="text-align:center; margin-bottom:20px;">
+    <div class="filters">
       <select id="filter-country">
         <option value="All">All Countries</option>
         <option value="Bahrain">Bahrain</option>
@@ -82,9 +83,9 @@ fetch('data/players.json')
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${player.rankOverall}</td>
-          <td>
+          <td class="player-name">
             <img class="player-avatar" src="${player.photo}" alt="${player.name}">
-            ${player.name}
+            <span>${player.name}</span>
           </td>
           <td>${player.position || "-"}</td>
           <td>${player.rating || "-"}</td>
