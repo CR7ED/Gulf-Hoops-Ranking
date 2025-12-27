@@ -76,8 +76,8 @@ header nav a:hover {
 }
 .hero-img {
     width: 100%;
-    max-width: 600px;       /* smaller width */
-    max-height: 400px;      /* limit height */
+    max-width: 200px;       /* smaller width */
+    max-height: 300px;      /* limit height */
     object-fit: cover;      /* crops nicely if needed */
     border-radius: 12px;
     margin: 0 auto 30px auto;
