@@ -24,12 +24,16 @@
     <section class="hero">
         <div class="hero-overlay"></div>
         <div class="container hero-grid">
-            <!-- Left column: Articles -->
-            <div class="hero-articles">
+            <!-- Left column: Articles Slider -->
+            <div class="hero-articles-slider">
                 <h3>Latest Gulf Basketball News</h3>
-                <ul id="articles-list">
-                    <!-- Articles will load here dynamically from articles.json -->
-                </ul>
+                <div class="slider-container">
+                    <button class="slider-btn left">&#10094;</button>
+                    <div class="slider-track" id="slider-track">
+                        <!-- Article cards load here dynamically -->
+                    </div>
+                    <button class="slider-btn right">&#10095;</button>
+                </div>
             </div>
 
             <!-- Right column: Hero image + main text -->
@@ -67,28 +71,54 @@
         </div>
     </footer>
 
-    <!-- JS: Load articles from JSON -->
+    <!-- JS: Dynamic Article Slider -->
     <script>
     fetch('articles.json')
     .then(response => response.json())
     .then(data => {
-        const articlesList = document.getElementById('articles-list');
+        const sliderTrack = document.getElementById('slider-track');
         data.forEach(article => {
-            const li = document.createElement('li');
-            const a = document.createElement('a');
-            a.href = article.link;
-            a.target = "_blank";  // open in new tab
-            a.textContent = article.title;
-            li.appendChild(a);
+            const card = document.createElement('div');
+            card.className = 'slider-card';
 
-            // Add source
-            const sourceSpan = document.createElement('span');
-            sourceSpan.textContent = ` (${article.source})`;
-            sourceSpan.style.color = '#555';
-            sourceSpan.style.fontSize = '0.9rem';
-            li.appendChild(sourceSpan);
+            const img = document.createElement('img');
+            img.src = article.image;
+            card.appendChild(img);
 
-            articlesList.appendChild(li);
+            const title = document.createElement('h4');
+            title.textContent = article.title;
+            card.appendChild(title);
+
+            const source = document.createElement('p');
+            source.textContent = article.source;
+            card.appendChild(source);
+
+            const link = document.createElement('a');
+            link.href = article.link;
+            link.target = "_blank";
+            link.textContent = "Read More";
+            card.appendChild(link);
+
+            sliderTrack.appendChild(card);
+        });
+
+        // Slider functionality
+        const track = sliderTrack;
+        let currentPosition = 0;
+        const btnLeft = document.querySelector('.slider-btn.left');
+        const btnRight = document.querySelector('.slider-btn.right');
+
+        btnLeft.addEventListener('click', () => {
+            currentPosition += 270;
+            if (currentPosition > 0) currentPosition = 0;
+            track.style.transform = `translateX(${currentPosition}px)`;
+        });
+
+        btnRight.addEventListener('click', () => {
+            const maxScroll = -(track.scrollWidth - track.parentElement.offsetWidth);
+            currentPosition -= 270;
+            if (currentPosition < maxScroll) currentPosition = maxScroll;
+            track.style.transform = `translateX(${currentPosition}px)`;
         });
     })
     .catch(err => console.error('Error loading articles:', err));
