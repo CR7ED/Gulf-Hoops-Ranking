@@ -11,52 +11,70 @@
 <header>
   <div class="header-container">
     <h1>Gulf Hoops Rankings</h1>
-    <p>Top Players in the Gulf Region by Age Category</p>
+    <nav class="sub-nav">
+      <a href="#">Home</a>
+      <a href="#">Rankings</a>
+      <a href="#">Ranking System</a>
+      <a href="#">Contact</a>
+    </nav>
   </div>
 </header>
 
 <main class="rankings-page">
   <div class="container">
 
-    <!-- FILTERS -->
-    <div class="filters">
-      <select id="filter-country">
-        <option value="All">All Countries</option>
-        <option value="Bahrain">Bahrain</option>
-        <option value="Qatar">Qatar</option>
-        <option value="UAE">UAE</option>
-        <option value="Saudi Arabia">Saudi Arabia</option>
-        <option value="Kuwait">Kuwait</option>
-        <option value="Oman">Oman</option>
-      </select>
+    <h2 class="page-title">2026 Top Basketball Recruits</h2>
 
-      <select id="filter-category">
-        <option value="All">All Categories</option>
-        <option value="U16">U16</option>
-        <option value="U18">U18</option>
-        <option value="U22">U22</option>
-        <option value="Main">Main Team</option>
-      </select>
-    </div>
+    <div class="content-wrapper">
 
-    <!-- PLAYER LIST -->
-    <div class="rankings-grid" id="rankings-grid">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player</th>
-            <th>Pos</th>
-            <th>Rating</th>
-            <th>Status</th>
-            <th>Team</th>
-            <th>Claim Profile</th>
-          </tr>
-        </thead>
-        <tbody id="player-rows">
-          <!-- JS will populate player rows -->
-        </tbody>
-      </table>
+      <!-- SIDEBAR FILTERS -->
+      <aside class="sidebar">
+        <h3>Filters</h3>
+        <select id="filter-country">
+          <option value="All">All Countries</option>
+          <option value="Bahrain">Bahrain</option>
+          <option value="Qatar">Qatar</option>
+          <option value="UAE">UAE</option>
+          <option value="Saudi Arabia">Saudi Arabia</option>
+          <option value="Kuwait">Kuwait</option>
+          <option value="Oman">Oman</option>
+        </select>
+
+        <select id="filter-category">
+          <option value="All">All Categories</option>
+          <option value="U16">U16</option>
+          <option value="U18">U18</option>
+          <option value="U22">U22</option>
+          <option value="Main">Main Team</option>
+        </select>
+      </aside>
+
+      <!-- MAIN TABLE + SEARCH -->
+      <div class="main-table">
+        <div class="table-header">
+          <input type="text" id="search-player" placeholder="Search player name...">
+        </div>
+
+        <div class="rankings-grid" id="rankings-grid">
+          <table>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Player</th>
+                <th>Pos</th>
+                <th>Rating</th>
+                <th>Status</th>
+                <th>Team</th>
+                <th>Claim Profile</th>
+              </tr>
+            </thead>
+            <tbody id="player-rows">
+              <!-- JS will populate player rows -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </div>
@@ -70,12 +88,16 @@ fetch('data/players.json')
     const tbody = document.getElementById('player-rows');
     const filterCountry = document.getElementById('filter-country');
     const filterCategory = document.getElementById('filter-category');
+    const searchInput = document.getElementById('search-player');
 
     function renderList() {
+      const searchText = searchInput.value.toLowerCase();
+
       tbody.innerHTML = '';
       let list = players
         .filter(p => filterCountry.value === 'All' || p.country === filterCountry.value)
-        .filter(p => filterCategory.value === 'All' || p.category === filterCategory.value);
+        .filter(p => filterCategory.value === 'All' || p.category === filterCategory.value)
+        .filter(p => p.name.toLowerCase().includes(searchText));
 
       list.sort((a,b) => a.rankOverall - b.rankOverall);
 
@@ -99,6 +121,7 @@ fetch('data/players.json')
 
     filterCountry.onchange = renderList;
     filterCategory.onchange = renderList;
+    searchInput.onkeyup = renderList;
     renderList();
 
   })
