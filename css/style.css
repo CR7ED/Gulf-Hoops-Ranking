@@ -76,7 +76,7 @@ header nav a:hover {
 }
 .hero-img {
     width: 100%;
-    max-width: 600px;       /* smaller width */
+    max-width: 400px;       /* smaller width */
     max-height: 300px;      /* limit height */
     object-fit: cover;      /* crops nicely if needed */
     border-radius: 12px;
@@ -152,10 +152,10 @@ footer {
 }
 
 /* RESPONSIVE */
-@media(max-width: 768px) {
-    .features-grid {
-        flex-direction: column;
-        align-items: center;
+@media (max-width: 768px) {
+    .hero-img {
+        max-width: 300px;
+        max-height: 220px;
     }
     .hero h2 {
         font-size: 2rem;
