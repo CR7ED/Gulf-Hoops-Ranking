@@ -1,3 +1,11 @@
+/* GENERAL STYLES */
+body {
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  color: #0b1d51;
+}
+
 /* HEADER */
 header {
   background-color: #FFD700; /* Yellow header */
@@ -10,9 +18,9 @@ header {
 header h1 {
   margin: 0;
   font-size: 2rem;
+  font-weight: bold;
 }
 
-/* SUB-NAVIGATION */
 .sub-nav {
   margin-top: 10px;
   display: flex;
@@ -24,25 +32,166 @@ header h1 {
 .sub-nav a {
   color: #0b1d51;
   text-decoration: none;
-  padding: 6px 12px;
+  padding: 8px 16px;
   font-weight: bold;
-  transition: background 0.3s, color 0.3s;
-  border-radius: 4px;
+  border-radius: 6px;
+  transition: all 0.3s;
 }
 
 .sub-nav a:hover {
   background-color: rgba(0,0,0,0.1);
 }
 
-/* MOBILE RESPONSIVE */
+/* PAGE TITLE */
+.page-title {
+  text-align: center;
+  font-size: 1.75rem;
+  margin: 30px 0;
+  font-weight: bold;
+}
+
+/* CONTENT WRAPPER */
+.content-wrapper {
+  display: flex;
+  gap: 25px;
+  padding: 0 20px 50px 20px;
+  flex-wrap: wrap;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 220px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  height: fit-content;
+}
+
+.sidebar h3 {
+  margin-top: 0;
+  font-size: 1.15rem;
+  font-weight: bold;
+  color: #0b1d51;
+}
+
+.sidebar select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 0.95rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* MAIN TABLE */
+.main-table {
+  flex: 1;
+  min-width: 300px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+#search-player {
+  padding: 10px 12px;
+  width: 250px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
+}
+
+/* TABLE STYLES */
+.rankings-grid table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  font-size: 0.95rem;
+}
+
+.rankings-grid th, .rankings-grid td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.rankings-grid th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.rankings-grid tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* PLAYER AVATAR */
+.player-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.player-name {
+  display: flex;
+  align-items: center;
+}
+
+/* CLAIM PROFILE */
+.claim-profile {
+  color: #007bff;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .content-wrapper {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  #search-player {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
 @media (max-width: 768px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.35rem;
+  }
+
   .sub-nav {
     flex-direction: column;
     align-items: center;
     gap: 8px;
   }
 
-  header h1 {
-    font-size: 1.5rem;
+  .rankings-grid table, .rankings-grid th, .rankings-grid td {
+    font-size: 0.85rem;
+  }
+
+  .player-avatar {
+    width: 30px;
+    height: 30px;
   }
 }
