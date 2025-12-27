@@ -13,7 +13,7 @@
             <nav>
                 <a href="index.html">Home</a> |
                 <a href="rankings.html">Rankings</a> |
-                <a href="methodology.html">Methodology</a> |
+                <a href="ranking-system.html">Ranking System</a> |
                 <a href="contact.html">Contact</a>
             </nav>
         </div>
@@ -21,20 +21,8 @@
 
     <main>
         <section class="player-profile">
-            <div class="container">
-                <h2>John Doe</h2>
-                <p><strong>Country:</strong> Bahrain</p>
-                <p><strong>Position:</strong> SG</p>
-                <p><strong>Height:</strong> 6'2</p>
-                <p><strong>Team:</strong> ABC Club</p>
-
-                <h3>Scouting Report</h3>
-                <p>Quick and aggressive guard with excellent finishing. Strong on-ball defender. Needs better 3-point consistency to climb the rankings.</p>
-
-                <h3>Highlights</h3>
-                <p>Check out player highlights below:</p>
-                <!-- You can embed YouTube videos like this -->
-                <!-- <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+            <div class="container" id="player-container">
+                <h2>Loading player...</h2>
             </div>
         </section>
     </main>
@@ -44,6 +32,46 @@
             <p>&copy; 2025 Gulf Hoops Rankings. All rights reserved.</p>
         </div>
     </footer>
+
+    <script>
+        // Function to get query parameters
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        const playerName = getQueryParam('name');
+
+        fetch('data/players.json')
+            .then(response => response.json())
+            .then(players => {
+                const player = players.find(p => p.name === playerName);
+                const container = document.getElementById('player-container');
+
+                if (!player) {
+                    container.innerHTML = `<h2>Player not found</h2>`;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <h2>${player.name}</h2>
+                    <p><strong>Rank:</strong> ${player.rank}</p>
+                    <p><strong>Country:</strong> ${player.country}</p>
+                    <p><strong>Position:</strong> ${player.position}</p>
+                    <p><strong>Height:</strong> ${player.height}</p>
+                    <p><strong>Team:</strong> ${player.team}</p>
+
+                    <h3>Scouting Report</h3>
+                    <p>${player.scouting || "No scouting report available yet."}</p>
+
+                    <h3>Highlights</h3>
+                    <p>Check out player highlights below:</p>
+                    ${player.video ? `<iframe width="560" height="315" src="${player.video}" frameborder="0" allowfullscreen></iframe>` : ""}
+                `;
+            })
+            .catch(error => {
+                console.error('Error loading player:', error);
+            });
+    </script>
 </body>
 </html>
-
