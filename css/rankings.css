@@ -7,8 +7,8 @@ body {
 
 /* HEADER */
 header {
-  background-color: #0b1d51;
-  color: white;
+  background-color: #FFD700; /* Yellow header */
+  color: #0b1d51;
   padding: 25px 0;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -21,17 +21,23 @@ header h1 {
 
 .sub-nav {
   margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .sub-nav a {
-  color: #ffffff;
+  color: #0b1d51;
   text-decoration: none;
-  margin: 0 15px;
+  padding: 6px 12px;
   font-weight: bold;
+  transition: background 0.3s, color 0.3s;
+  border-radius: 4px;
 }
 
 .sub-nav a:hover {
-  text-decoration: underline;
+  background-color: rgba(0,0,0,0.1);
 }
 
 /* PAGE TITLE */
@@ -141,4 +147,38 @@ header h1 {
   cursor: pointer;
   text-decoration: underline;
   font-size: 0.9rem;
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
+  .sub-nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  .page-title {
+    font-size: 1.25rem;
+  }
+
+  .content-wrapper {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .main-table {
+    width: 100%;
+  }
+
+  #search-player {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
