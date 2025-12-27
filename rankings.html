@@ -50,26 +50,29 @@
         </div>
     </footer>
 
+    <!-- Dynamic JS -->
     <script>
-    // Fetch players.json and populate table
-    fetch('data/players.json')
-        .then(response => response.json())
-        .then(players => {
-            const tbody = document.querySelector('#players-table tbody');
-            players.forEach(player => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${player.rank}</td>
-                    <td><a href="${player.profilePage}?name=${encodeURIComponent(player.name)}">${player.name}</a></td>
-                    <td>${player.country}</td>
-                    <td>${player.position}</td>
-                    <td>${player.height}</td>
-                    <td>${player.team}</td>
-                `;
-                tbody.appendChild(tr);
+        // Fetch players.json and populate table with clickable names
+        fetch('data/players.json')
+            .then(response => response.json())
+            .then(players => {
+                const tbody = document.querySelector('#players-table tbody');
+                players.forEach(player => {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td>${player.rank}</td>
+                        <td><a href="${player.profilePage}?name=${encodeURIComponent(player.name)}">${player.name}</a></td>
+                        <td>${player.country}</td>
+                        <td>${player.position}</td>
+                        <td>${player.height}</td>
+                        <td>${player.team}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error('Error loading players:', error);
             });
-        })
-        .catch(error => {
-            console.error('Error loading players:', error);
-        });
-</script>
+    </script>
+</body>
+</html>
