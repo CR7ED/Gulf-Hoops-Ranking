@@ -40,7 +40,22 @@
 
     <!-- PLAYER LIST -->
     <div class="rankings-grid" id="rankings-grid">
-      <!-- JS will populate players here -->
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player</th>
+            <th>Pos</th>
+            <th>Rating</th>
+            <th>Status</th>
+            <th>Team</th>
+            <th>Claim Profile</th>
+          </tr>
+        </thead>
+        <tbody id="player-rows">
+          <!-- JS will populate player rows -->
+        </tbody>
+      </table>
     </div>
 
   </div>
@@ -51,12 +66,12 @@ fetch('data/players.json')
   .then(res => res.json())
   .then(players => {
 
-    const grid = document.getElementById('rankings-grid');
+    const tbody = document.getElementById('player-rows');
     const filterCountry = document.getElementById('filter-country');
     const filterCategory = document.getElementById('filter-category');
 
     function renderList() {
-      grid.innerHTML = '';
+      tbody.innerHTML = '';
       let list = players
         .filter(p => filterCountry.value === 'All' || p.country === filterCountry.value)
         .filter(p => filterCategory.value === 'All' || p.category === filterCategory.value);
@@ -64,17 +79,20 @@ fetch('data/players.json')
       list.sort((a,b) => a.rankOverall - b.rankOverall);
 
       list.forEach(player => {
-        const row = document.createElement('div');
-        row.className = 'player-card';
+        const row = document.createElement('tr');
         row.innerHTML = `
-          <div class="rank-badge">${player.rankOverall}</div>
-          <div class="player-info">
-            <h3>${player.name}</h3>
-            <img class="flag" src="${player.countryFlag}" alt="${player.country}">
-            <span class="category">${player.category}</span>
-          </div>
+          <td>${player.rankOverall}</td>
+          <td>
+            <img class="player-avatar" src="${player.photo}" alt="${player.name}">
+            ${player.name}
+          </td>
+          <td>${player.position || "-"}</td>
+          <td>${player.rating || "-"}</td>
+          <td>${player.status || "-"}</td>
+          <td>${player.team || "-"}</td>
+          <td><span class="claim-profile">Claim Profile</span></td>
         `;
-        grid.appendChild(row);
+        tbody.appendChild(row);
       });
     }
 
