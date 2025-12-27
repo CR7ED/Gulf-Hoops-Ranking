@@ -1,78 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gulf Hoops Rankings - Top 50 Players</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gulf Hoops Rankings</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Gulf Hoops Rankings</h1>
-            <nav>
-                <a href="index.html">Home</a> |
-                <a href="rankings.html">Rankings</a> |
-                <a href="ranking-system.html">Ranking System</a> |
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-    </header>
 
-    <main>
-        <section class="rankings">
-            <div class="container">
-                <h2>Top 50 Gulf Basketball Players</h2>
-                <p>Including both local and immigrant talent. Rankings are updated regularly.</p>
+<header>
+  <div class="container">
+    <h1>Gulf Hoops Rankings</h1>
+  </div>
+</header>
 
-                <table id="players-table">
-                    <thead>
-                        <tr>
-                            <th>Rank</th>
-                            <th>Player Name</th>
-                            <th>Country</th>
-                            <th>Position</th>
-                            <th>Height</th>
-                            <th>Team</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- JS will populate this -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-    </main>
+<main class="rankings-page">
+  <div class="container">
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Gulf Hoops Rankings. All rights reserved.</p>
-        </div>
-    </footer>
+    <!-- FILTERS -->
+    <div class="filters">
+      <select id="filter-country">
+        <option value="All">All Countries</option>
+        <option value="Bahrain">Bahrain</option>
+        <option value="Qatar">Qatar</option>
+        <option value="UAE">UAE</option>
+        <option value="Saudi Arabia">Saudi Arabia</option>
+        <option value="Kuwait">Kuwait</option>
+        <option value="Oman">Oman</option>
+      </select>
 
-    <!-- Dynamic JS -->
-    <script>
-        // Fetch players.json and populate table with clickable names
-        fetch('data/players.json')
-            .then(response => response.json())
-            .then(players => {
-                const tbody = document.querySelector('#players-table tbody');
-                players.forEach(player => {
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td>${player.rank}</td>
-                        <td><a href="${player.profilePage}?name=${encodeURIComponent(player.name)}">${player.name}</a></td>
-                        <td>${player.country}</td>
-                        <td>${player.position}</td>
-                        <td>${player.height}</td>
-                        <td>${player.team}</td>
-                    `;
-                    tbody.appendChild(tr);
-                });
-            })
-            .catch(error => {
-                console.error('Error loading players:', error);
-            });
-    </script>
+      <select id="filter-category">
+        <option value="All">All Categories</option>
+        <option value="U16">U16</option>
+        <option value="U18">U18</option>
+        <option value="U22">U22</option>
+        <option value="Main">Main Team</option>
+      </select>
+    </div>
+
+    <!-- PLAYER CARDS GRID -->
+    <div class="rankings-grid" id="rankings-grid">
+      <!-- JS will populate cards here -->
+    </div>
+
+  </div>
+</main>
+
+<script>
+// Load players from JSON
+fetch('data/players.json')
+  .then(res => res.json())
+  .then(players => {
+
+    const grid = document.getElementById('rankings-grid');
+    const filterCountry = document.getElementById('filter-country');
+    const filterCategory = document.getElementById('filter-category');
+
+    function renderList() {
+      grid.innerHTML = '';
+      let list = players
+        .filter(p => filterCountry.value === 'All' || p.country === filterCountry.value)
+        .filter(p => filterCategory.value === 'All' || p.category === filterCategory.value);
+
+      list.sort((a,b) => a.rankOverall - b.rankOverall);
+
+      list.forEach(player => {
+        const card = document.createElement('div');
+        card.className = 'player-card';
+        card.innerHTML = `
+          <div class="rank-badge">${player.rankOverall}</div>
+          <img src="${player.photo}" alt="${player.name}">
+          <h3>${player.name}</h3>
+          <div class="player-info">
+            <img class="flag" src="${player.countryFlag}" alt="${player.country}">
+            <p>${player.country} • ${player.category}</p>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    filterCountry.onchange = renderList;
+    filterCategory.onchange = renderList;
+    renderList();
+
+  })
+  .catch(err => console.error('Error loading players:', err));
+</script>
+
 </body>
 </html>
