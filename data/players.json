@@ -1,0 +1,30 @@
+[
+  {
+    "rank": "N/A",
+    "name": "John Doe",
+    "country": "Bahrain",
+    "position": "SG",
+    "height": "6'2",
+    "team": "ABC Club",
+    "profilePage": "player.html"
+  },
+  {
+    "rank": "N/A",
+    "name": "Ali Hassan",
+    "country": "UAE",
+    "position": "PF",
+    "height": "6'5",
+    "team": "XYZ Club",
+    "profilePage": "player.html"
+  },
+  {
+    "rank": "N/A",
+    "name": "Mohammed Saleh",
+    "country": "Kuwait",
+    "position": "C",
+    "height": "6'7",
+    "team": "Kuwait Tigers",
+    "profilePage": "player.html"
+  }
+  /* Add more players up to Top 50 */
+]
