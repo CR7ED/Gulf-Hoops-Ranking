@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gulf Hoops Rankings</title>
-<link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gulf Hoops Rankings</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- HEADER -->
     <header>
-        <div class="header-container">
+        <div class="container header-container">
             <h1>Gulf Hoops Rankings</h1>
             <nav>
                 <a href="index.html">Home</a>
@@ -21,33 +21,34 @@
     </header>
 
     <!-- HERO SECTION -->
-<section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <img src="https://via.placeholder.com/400x300.png?text=Gulf+Basketball" alt="Gulf Basketball" class="hero-img">
-        <h2>Top Basketball Talent in the Gulf</h2>
-        <p>Tracking both local and immigrant players with the most up-to-date rankings.</p>
-        <a href="rankings.html" class="btn-primary">View Rankings</a>
-    </div>
-</section>
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="container hero-grid">
+            <!-- Left column: Articles Slider -->
+            <div class="hero-articles-slider">
+                <h3>Latest Gulf Basketball News</h3>
+                <div class="slider-container">
+                    <button class="slider-btn left">&#10094;</button>
+                    <div class="slider-track" id="slider-track">
+                        <!-- Article cards load here dynamically -->
+                    </div>
+                    <button class="slider-btn right">&#10095;</button>
+                </div>
+            </div>
 
-<!-- ARTICLE SLIDER BELOW HERO -->
-<section class="article-slider-section">
-    <h3>Latest Gulf Basketball News</h3>
-    <div class="article-slider">
-        <button class="slider-btn left">&#10094;</button>
-        <div class="slider-window">
-            <div class="slider-track" id="slider-track">
-                <!-- Article cards will be inserted dynamically -->
+            <!-- Right column: Hero image + main text -->
+            <div class="hero-content">
+                <img src="https://www.kuna.net.kw/NewsPictures/2024/8/1/e4e11216-a79f-4063-b152-a91363ad7638.jpg" alt="Gulf Basketball" class="hero-img">
+                <h2>Top Basketball Talent in the Gulf</h2>
+                <p>Tracking both local and immigrant players with the most up-to-date rankings.</p>
+                <a href="rankings.html" class="btn-primary">View Rankings</a>
             </div>
         </div>
-        <button class="slider-btn right">&#10095;</button>
-    </div>
-</section>
+    </section>
 
     <!-- FEATURES SECTION -->
     <section class="features">
-        <div class="features-grid">
+        <div class="container features-grid">
             <div class="feature-card">
                 <h3>Player Rankings</h3>
                 <p>Explore detailed rankings and stats for Gulf basketball players.</p>
@@ -65,21 +66,23 @@
 
     <!-- FOOTER -->
     <footer>
-        <p>&copy; 2025 Gulf Hoops Rankings. All rights reserved.</p>
+        <div class="container footer-container">
+            <p>&copy; 2025 Gulf Hoops Rankings. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- JS: Article slider -->
+    <!-- JS: Dynamic Article Slider -->
     <script>
     fetch('articles.json')
-    .then(res => res.json())
+    .then(response => response.json())
     .then(data => {
-        const track = document.getElementById('slider-track');
+        const sliderTrack = document.getElementById('slider-track');
         data.forEach(article => {
             const card = document.createElement('div');
             card.className = 'slider-card';
 
             const img = document.createElement('img');
-            img.src = article.image || 'https://via.placeholder.com/400x200.png?text=Article';
+            img.src = article.image;
             card.appendChild(img);
 
             const title = document.createElement('h4');
@@ -96,32 +99,29 @@
             link.textContent = "Read More";
             card.appendChild(link);
 
-            track.appendChild(card);
+            sliderTrack.appendChild(card);
         });
 
-        // Slider functionality (single article at a time)
+        // Slider functionality
+        const track = sliderTrack;
+        let currentPosition = 0;
         const btnLeft = document.querySelector('.slider-btn.left');
         const btnRight = document.querySelector('.slider-btn.right');
-        let currentIndex = 0;
-
-        function updateSlider() {
-            const width = track.children[0].offsetWidth + 20; // card width + margin
-            track.style.transform = `translateX(${-currentIndex * width}px)`;
-        }
 
         btnLeft.addEventListener('click', () => {
-            currentIndex--;
-            if (currentIndex < 0) currentIndex = 0;
-            updateSlider();
+            currentPosition += 270;
+            if (currentPosition > 0) currentPosition = 0;
+            track.style.transform = `translateX(${currentPosition}px)`;
         });
 
         btnRight.addEventListener('click', () => {
-            currentIndex++;
-            if (currentIndex > track.children.length - 1) currentIndex = track.children.length -1;
-            updateSlider();
+            const maxScroll = -(track.scrollWidth - track.parentElement.offsetWidth);
+            currentPosition -= 270;
+            if (currentPosition < maxScroll) currentPosition = maxScroll;
+            track.style.transform = `translateX(${currentPosition}px)`;
         });
     })
-    .catch(err => console.error(err));
+    .catch(err => console.error('Error loading articles:', err));
     </script>
 </body>
 </html>
