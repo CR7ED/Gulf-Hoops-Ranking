@@ -1,125 +1,113 @@
-/* General Styles */
-body {
-    font-family: Arial, Helvetica, sans-serif;
+/* GENERAL RESET */
+* {
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
+    box-sizing: border-box;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
-.container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
+/* COLORS */
+:root {
+    --primary: #0A3D62; /* deep Gulf-inspired color */
+    --accent: #F6A609;  /* gold accent */
+    --text: #121212;
+    --bg: #FFFFFF;
+    --light-bg: #F8F8F8;
+    --border: #E0E0E0;
 }
 
-/* Header */
+/* BODY */
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+/* HEADER */
 header {
-    background-color: #1e3d59;
-    color: #fff;
+    background: var(--primary);
     padding: 20px 0;
+    color: white;
 }
-
 header h1 {
     text-align: center;
-    margin: 0;
+    font-size: 2rem;
 }
-
 header nav {
     text-align: center;
     margin-top: 10px;
 }
-
 header nav a {
-    color: #fff;
+    color: white;
     text-decoration: none;
-    margin: 0 15px;
+    margin: 0 12px;
     font-weight: bold;
+    font-size: 1rem;
 }
-
 header nav a:hover {
-    text-decoration: underline;
+    color: var(--accent);
 }
 
-/* Main Sections */
-main h2 {
-    color: #1e3d59;
-    margin-bottom: 10px;
-}
-
-main p {
-    line-height: 1.6;
-}
-
-/* Rankings Table */
+/* TABLE STYLING */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
-    background-color: #fff;
+    margin-top: 25px;
+    background: var(--light-bg);
 }
-
 table th, table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
+    padding: 12px 15px;
+    border: 1px solid var(--border);
 }
-
 table th {
-    background-color: #1e3d59;
-    color: #fff;
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
 }
-
 table tr:nth-child(even) {
-    background-color: #f9f9f9;
+    background: #FAFAFA;
+}
+table tr:hover {
+    background: #EFEFEF;
+}
+table td a {
+    color: var(--primary);
+    font-weight: bold;
+    text-decoration: none;
+}
+table td a:hover {
+    color: var(--accent);
+    text-decoration: underline;
 }
 
-/* Forms */
-form input[type="text"],
-form input[type="email"],
-form textarea {
-    width: 100%;
-    padding: 10px;
+/* PLAYER PROFILE */
+.player-profile h2 {
+    font-size: 2rem;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
+    color: var(--primary);
+}
+.player-profile p {
+    margin: 8px 0;
 }
 
-form input[type="submit"],
-form input[type="reset"] {
-    background-color: #1e3d59;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-form input[type="submit"]:hover,
-form input[type="reset"]:hover {
-    background-color: #3e5c7b;
-}
-
-/* Footer */
+/* FOOTER */
 footer {
-    background-color: #1e3d59;
-    color: #fff;
     text-align: center;
     padding: 15px 0;
-    margin-top: 20px;
+    background: var(--primary);
+    color: white;
+    margin-top: 30px;
 }
 
-/* Responsive */
+/* RESPONSIVE */
 @media (max-width: 768px) {
+    table th, table td {
+        padding: 8px;
+        font-size: 14px;
+    }
     header nav a {
         display: block;
-        margin: 5px 0;
-    }
-    
-    table th, table td {
-        font-size: 14px;
-        padding: 8px;
+        margin: 8px 0;
     }
 }
